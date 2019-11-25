@@ -1,0 +1,22 @@
+export default {
+    methods:{
+        success(str){
+            this.$message({
+                type:'success',
+                message:str
+            })
+        },
+        warn(str){
+            this.$message({
+                type:'warning',
+                message:str
+            })
+        },
+        normal(str){
+            this.$message({
+                type:'info',
+                message:str
+            })
+        }
+    }
+}
