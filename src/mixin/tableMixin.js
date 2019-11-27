@@ -87,6 +87,8 @@ export default {
             this.page_dialog = val;
             this.getList_dialog(this.url_dialog);
         },
+
+        
         //查询
         formSearch(model) {
             this.searchForm = model;

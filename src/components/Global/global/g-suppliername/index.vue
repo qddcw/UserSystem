@@ -4,7 +4,7 @@
     <el-dialog title="选择供应商" :visible.sync="dialogVisible" append-to-body>
       <g-searchform-dialog :form-items="formItems_supplier" :add='false' @handleSearch="searchSupplier"
         ref="searchFrom" style='margin-bottom:8px'></g-searchform-dialog>
-      <g-table-dialog :table-data="tableDataSource_dialog" :table-column='column' @supplierSelect="supplierSelect">
+      <g-table-dialog :table-data="tableDataSource_dialog" :table-column='column' @current-change="supplierSelect">
       </g-table-dialog>
       <el-pagination @size-change="handleSizeChange_dialog" @current-change="handleCurrentChange_dialog"
         :current-page="page_dialog" :page-sizes="[10, 20, 30, 40]" :page-size="psize_dialog"

@@ -1,6 +1,6 @@
 <template>
   <el-table :data="tableData" height="500" border stripe style="width: calc(100% - 1px);margin-bottom:10px;"
-    ref='table' highlight-current-row @current-change="handleCurrentChange" v-on="$listeners">
+    ref='table' highlight-current-row  v-on="$listeners">
     <el-table-column type="index" width="50">
     </el-table-column>
     <el-table-column v-for='(item,index) in tableColumn' :key="index" :prop="item.prop" :label="item.label"
@@ -32,9 +32,6 @@
       }
     },
     methods: {
-      handleCurrentChange(val){ 
-        this.$emit("supplierSelect",val)
-      }
     },
     updated() {
       this.$refs.table.doLayout();
