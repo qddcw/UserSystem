@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <a href="#/">
+        <a href="/home">
             <img src="@/assets/logo.png" class='logo'>
             <span class='title'>XXX用户管理系统</span>
         </a>

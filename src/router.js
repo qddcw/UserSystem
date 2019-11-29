@@ -24,7 +24,7 @@ export default new Router({
           name: "home",
           component: () =>
             import("@/views/Home"),
-          meta:{title:'首页'}
+          meta:{title:['首页']}
         }
       ]
     },
@@ -36,7 +36,7 @@ export default new Router({
         name: "member",
         component: () =>
           import("@/views/Member"),
-        meta:{title:'会员管理'}
+        meta:{title:['会员管理']}
       }]
     },
     {
@@ -47,7 +47,7 @@ export default new Router({
         name: "goods",
         component: () =>
           import("@/views/Goods"),
-        meta:{title:'商品管理'}
+        meta:{title:['商品管理']}
       }]
     },
     {
@@ -58,7 +58,7 @@ export default new Router({
         name: "staff",
         component: () =>
           import("@/views/Staff"),
-        meta:{title:'员工管理'}
+        meta:{title:['员工管理']}
       }]
     },
     {
@@ -69,7 +69,18 @@ export default new Router({
         name: "supplier",
         component: () =>
           import("@/views/Supplier"),
-        meta:{title:'供应商管理'}
+        meta:{title:['供应商管理']}
+      }]
+    },
+    {
+      path: "/echarts",
+      component: Layout,
+      children:[{
+        path: "/echarts/demo",
+        name: "echarts",
+        component: () =>
+          import("@/views/Echarts/demo.vue"),
+        meta:{title:['echarts','demo']}
       }]
     },
     

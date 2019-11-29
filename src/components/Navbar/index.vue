@@ -10,7 +10,7 @@
     >
       <el-menu-item
         v-for="(item, index) in noChildrenMenu"
-        :key="index"
+        :key="'noch'+index"
         :index="item.path"
       >
         <i :class="item.icon"></i>
@@ -27,8 +27,8 @@
         </template>
         <el-menu-item-group>
           <el-menu-item
-            v-for="(subitem, subindex) in item.children"
-            :key="subindex"
+            v-for="(subitem, subIndex) in item.children"
+            :key="subIndex"
             :index="subitem.path"
           >
             <i :class="subitem.icon"></i>

@@ -1,7 +1,8 @@
 <template>
     <el-card>
         <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: $router.path }">{{$route.meta.title}}</el-breadcrumb-item>
+            <el-breadcrumb-item  v-for="(item,index) in $route.meta.title" :key="index">
+              {{item}}  </el-breadcrumb-item>
         </el-breadcrumb>
     </el-card>
 </template>
