@@ -26,3 +26,13 @@ export function logout(token){
         }
     })
 }
+export function getMenu(token){
+    return $axios({
+        url:'/user/getMenu',
+        method:'post',
+        data:{
+            token:token
+        }
+    })
+
+}

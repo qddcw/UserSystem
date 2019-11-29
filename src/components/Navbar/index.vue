@@ -1,53 +1,83 @@
 <template>
-    <div class="navbar">
-        <el-menu :default-active="path"  class="el-menu-vertical-demo" :router="true" 
-            background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-            <el-menu-item index="/home">
-                <i class="el-icon-s-home"></i>
-                <span slot="title">首页</span>
-            </el-menu-item>
-            <el-menu-item index="/member/">
-                <i class="el-icon-user-solid"></i>
-                <span slot="title">会员管理</span>
-            </el-menu-item>
-            <el-menu-item index="/supplier/">
-                <i class="el-icon-s-cooperation"></i>
-                <span slot="title">供应商管理</span>
-            </el-menu-item>
-            <el-menu-item index="/goods/">
-                <i class="el-icon-s-goods"></i>
-                <span slot="title">商品管理</span>
-            </el-menu-item>
-            <el-menu-item index="/staff/">
-                <i class="el-icon-user"></i>
-                <span slot="title">员工管理</span>
-            </el-menu-item>
-        </el-menu>
-    </div>
+  <div class="navbar">
+    <el-menu
+      :default-active="path"
+      class="el-menu-vertical-demo"
+      :router="true"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+    >
+      <el-menu-item
+        v-for="(item, index) in noChildrenMenu"
+        :key="index"
+        :index="item.path"
+      >
+        <i :class="item.icon"></i>
+        <span slot="title">{{ item.title }}</span>
+      </el-menu-item>
+      <el-submenu
+        v-for="(item, index) in hasChildrenMenu"
+        :key="index"
+        :index="item.path"
+      >
+        <template slot="title">
+          <i :class="item.icon"></i>
+          <span>{{ item.title }}</span>
+        </template>
+        <el-menu-item-group>
+          <el-menu-item
+            v-for="(subitem, subindex) in item.children"
+            :key="subindex"
+            :index="subitem.path"
+          >
+            <i :class="subitem.icon"></i>
+            <span>{{ subitem.title }}</span>
+          </el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+    </el-menu>
+  </div>
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                path:'/home'
-            }
-        },
+import { getMenu } from "@/api/login";
+export default {
+  data() {
+    return {
+      path: "/home",
+      menuList: []
+    };
+  },
 
-        components: {},
+  components: {},
 
-        methods: {},
-        created(){
-            this.path=this.$route.path;
-        }
+  methods: {},
+  created() {
+    this.path = this.$route.path;
+    getMenu(JSON.parse(localStorage.getItem("token"))).then(res => {
+      this.menuList = res.data.data.menu;
+    });
+  },
+  computed: {
+    hasChildrenMenu() {
+      return this.menuList.filter(item => item.children);
+    },
+    noChildrenMenu() {
+      return this.menuList.filter(item => !item.children);
     }
+  }
+};
 </script>
 
 <style scoped>
-    .el-menu{
-        border:0px;
-    }
-    span{
-        font-size:20px;
-    }
+.el-menu {
+  border: 0px;
+}
+span {
+  font-size: 20px;
+}
+.el-menu-item {
+  font-size: 18px;
+}
 </style>
