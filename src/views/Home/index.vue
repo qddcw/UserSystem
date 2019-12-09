@@ -7,10 +7,13 @@
         prefix-icon="el-icon-search"
         v-model="searchModel"
         clearable
+        @focus="memberListVisible = true;"
+        @blur="memberListVisible = false;"
+        @input="inputChange"
       >
       </el-input>
     </div>
-    <div id="memberList">
+    <div id="memberList" v-show='memberListVisible'>
       <el-card shadow="hover"  body-style="cursor:pointer"
         @click.native="detailsShow(index)"
        v-for="(item,index) in memberList" :key='item.id'>
@@ -50,6 +53,7 @@ export default {
       searchModel: "",
       memberListModel: [],
       size: 5,
+      memberListVisible:false,
     };
   },
   created() {
@@ -77,7 +81,8 @@ export default {
       memberApi
         .getMemberList({
           page: this.page,
-          size: this.size
+          size: this.size,
+          searchModel:this.searchModel
         })
         .then(res => {
           this.memberListModel = res.data.data.rows;
@@ -90,10 +95,15 @@ export default {
       this.initMemberList();
     },
     detailsShow(index){
-      this.memberListModel.forEach(item => {
-        item.show = false ;
+      this.memberListModel.forEach((item,ind) => {
+        if(ind !== index){
+          item.show = false ;
+        }
       })
       this.memberListModel[index].show=!this.memberListModel[index].show;
+    },
+    inputChange(){
+      this.initMemberList();
     }
   },
   mounted() {
