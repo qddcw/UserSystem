@@ -1,12 +1,13 @@
 import $axios from '@/utils/request'
 
 export default {
-    // getMemberList() {
-    //     return $axios({
-    //         url: '/member/list',
-    //         method: 'post'
-    //     })
-    // }
+    getMemberList(obj) {
+        return $axios({
+            url: '/member/list/indexSearch',
+            method: 'post',
+            data:obj
+        })
+    },
     addMember(obj){
         return $axios({
             url:'/member/add',

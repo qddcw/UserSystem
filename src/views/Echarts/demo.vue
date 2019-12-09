@@ -1,5 +1,7 @@
 <template>
-  <div id="mapChart"></div>
+  <div>
+    <div id="mapChart"></div>
+  </div>
 </template>
 
 <script>
@@ -14,13 +16,14 @@ export default {
 
   methods: {
     getmap() {
-      echarts.registerMap('nanjing',nanjing)
+      echarts.registerMap("nanjing", nanjing);
       let myChart = echarts.init(document.getElementById("mapChart"));
       let mapOption = {
+        backgroundColor: "#fff",
         series: [
           {
             type: "map",
-            map: 'nanjing'
+            map: "nanjing"
           }
         ]
       };
@@ -36,7 +39,7 @@ export default {
 
 <style scoped>
 #mapChart {
-  width:100%;
+  width: 100%;
   height: calc(100vh - 166px);
 }
 </style>
