@@ -21,16 +21,35 @@
         :key="item.id"
       >
         <div>
-          <el-tag effect="dark">{{ item.name }}</el-tag
-          ><el-button
-            @click.stop="showDialog(item)"
-            plain
-            size="mini"
-            type="success"
-            circle
-            icon="el-icon-edit-outline"
-            style="float:right"
-          ></el-button>
+          <el-row>
+            <el-col :span="4"
+              ><el-tag effect="dark">{{ item.name }}</el-tag></el-col
+            >
+            <el-col :span="5"
+              ><el-tag
+                effect="dark"
+                :type="
+                  item.right == 1
+                    ? 'success'
+                    : item.right == 2
+                    ? 'danger'
+                    : 'warning'
+                "
+                >{{ item.right | rightFilter }}</el-tag
+              ></el-col
+            >
+            <el-col :span="15"
+              ><el-button
+                @click.stop="showDialog(item)"
+                plain
+                size="mini"
+                type="success"
+                circle
+                icon="el-icon-edit-outline"
+                style="float:right"
+              ></el-button
+            ></el-col>
+          </el-row>
         </div>
         <span
           ><el-tag effect="plain">{{ item.address }}</el-tag>
@@ -87,15 +106,35 @@
       >
       </g-form-dialog>
     </el-dialog>
+    <div id="lengend">
+      <el-card :body-style="cardBodyStyle">标注</el-card>
+      <el-checkbox-group v-model="checkList">
+        <el-card :body-style="cardBodyStyle"
+          ><el-checkbox label="1" checked>普通会员</el-checkbox
+        ><img src="../../assets/marker/normalVip_small.gif" alt=""></el-card>
+        <el-card :body-style="cardBodyStyle"
+          ><el-checkbox label="2" checked>高级会员</el-checkbox
+        ><img src="../../assets/marker/higherVip_small.gif" alt=""></el-card>
+        <el-card :body-style="cardBodyStyle"
+          ><el-checkbox label="3" checked>超级会员</el-checkbox
+        ><img src="../../assets/marker/superVip_small.gif" alt=""></el-card>
+      </el-checkbox-group>
+    </div>
   </div>
 </template>
 
 <script>
 import BMap from "BMap";
 import memberApi from "@/api/member.js";
+import normalIcon from "@/assets/marker/normalVip.gif";
+import higherIcon from "@/assets/marker/higherVip.gif";
+import superIcon from "@/assets/marker/superVip.gif";
+//import styleJson from "../../assets/custom_map_config.json";
 export default {
   data() {
     return {
+      cardBodyStyle:"padding: 15px 15px 5px;height:30px;",
+      checkList: [],
       searchModel: "",
       memberListModel: [],
       size: 5,
@@ -283,10 +322,14 @@ export default {
       // 百度地图API功能
       this.map = new BMap.Map("map");
       let point = new BMap.Point(118.801902, 31.940456);
+      // this.map.setMapStyle({
+      //   styleJson:
+      // })
 
-      this.map.centerAndZoom(point, 15);
+      this.map.centerAndZoom(point, 9);
       this.map.enableScrollWheelZoom(true);
       this.map.addControl(new BMap.NavigationControl());
+      //this.map.setMapStyleV2({styleJson:styleJson});
     },
     initMemberList() {
       memberApi
@@ -298,10 +341,25 @@ export default {
         .then(res => {
           this.memberListModel = res.data.data.rows;
           this.dataTotal = res.data.data.total;
+        });
+    },
+    getAllMembers() {
+      memberApi
+        .getAllMemberList({
+          checkList: this.checkList
+        })
+        .then(res => {
           this.map.clearOverlays();
-          this.memberListModel.forEach(item => {
+          res.data.data.rows.forEach(item => {
             let point = new BMap.Point(item.longitude, item.latitude);
-            let marker = new BMap.Marker(point); // 创建标注
+            let Icon =
+              item.right == "1"
+                ? normalIcon
+                : item.right == "2"
+                ? higherIcon
+                : superIcon;
+            var myIcon = new BMap.Icon(Icon, new BMap.Size(50, 60));
+            let marker = new BMap.Marker(point, { icon: myIcon }); // 创建标注
             this.map.addOverlay(marker);
           });
         });
@@ -345,6 +403,24 @@ export default {
   },
   mounted() {
     this.initMap();
+    this.getAllMembers();
+  },
+  filters: {
+    rightFilter(right) {
+      let changeType = "";
+      switch (right) {
+        case "1":
+          changeType = "普通会员";
+          break;
+        case "2":
+          changeType = "高级会员";
+          break;
+        case "3":
+          changeType = "超级会员";
+          break;
+      }
+      return changeType;
+    }
   }
 };
 </script>
@@ -368,6 +444,15 @@ export default {
   left: 110px;
   top: 60px;
   width: 480px;
+}
+#lengend {
+  position: absolute;
+  right: 30px;
+  bottom: 60px;
+  width: 200px;
+}
+#lengend img{
+  float:right;
 }
 .detailsCard {
   display: none;

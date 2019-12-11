@@ -8,6 +8,13 @@ export default {
             data:obj
         })
     },
+    getAllMemberList(obj) {
+        return $axios({
+            url: '/member/list/getAllMembers',
+            method: 'post',
+            data:obj
+        })
+    },
     addMember(obj){
         return $axios({
             url:'/member/add',
