@@ -3,6 +3,7 @@
     <div id="map" class="map"></div>
     <div id="searchInput">
       <el-input
+        ref="searchInput"
         placeholder="请输入会员姓名"
         prefix-icon="el-icon-search"
         v-model="searchModel"
@@ -110,14 +111,19 @@
       <el-card :body-style="cardBodyStyle">标注</el-card>
       <el-checkbox-group v-model="checkList">
         <el-card :body-style="cardBodyStyle"
-          ><el-checkbox label="1" checked>普通会员</el-checkbox
-        ><img src="../../assets/marker/normalVip_small.gif" alt=""></el-card>
+          ><el-checkbox label="1">普通会员</el-checkbox
+          ><img src="../../assets/marker/normalVip_small.gif" alt=""
+        /></el-card>
+
         <el-card :body-style="cardBodyStyle"
-          ><el-checkbox label="2" checked>高级会员</el-checkbox
-        ><img src="../../assets/marker/higherVip_small.gif" alt=""></el-card>
+          ><el-checkbox label="2">高级会员</el-checkbox
+          ><img src="../../assets/marker/higherVip_small.gif" alt=""
+        /></el-card>
+
         <el-card :body-style="cardBodyStyle"
-          ><el-checkbox label="3" checked>超级会员</el-checkbox
-        ><img src="../../assets/marker/superVip_small.gif" alt=""></el-card>
+          ><el-checkbox label="3">超级会员</el-checkbox
+          ><img src="../../assets/marker/superVip_small.gif" alt=""
+        /></el-card>
       </el-checkbox-group>
     </div>
   </div>
@@ -133,10 +139,11 @@ import superIcon from "@/assets/marker/superVip.gif";
 export default {
   data() {
     return {
-      cardBodyStyle:"padding: 15px 15px 5px;height:30px;",
-      checkList: [],
+      cardBodyStyle: "padding: 15px 15px 5px;height:30px;",
+      checkList: ["1", "2", "3"],
       searchModel: "",
       memberListModel: [],
+      allMemberModel: [],
       size: 5,
       memberListVisible: false,
       map: {},
@@ -322,14 +329,28 @@ export default {
       // 百度地图API功能
       this.map = new BMap.Map("map");
       let point = new BMap.Point(118.801902, 31.940456);
-      // this.map.setMapStyle({
-      //   styleJson:
-      // })
-
-      this.map.centerAndZoom(point, 9);
+      this.map.centerAndZoom(point, 8);
       this.map.enableScrollWheelZoom(true);
       this.map.addControl(new BMap.NavigationControl());
-      //this.map.setMapStyleV2({styleJson:styleJson});
+      this.map.addEventListener('click',()=>{
+        this.$refs.searchInput.blur();
+        this.memberListVisible = false;
+      })
+    },
+    drawMarkers(list) {
+      this.map.clearOverlays();
+      list.forEach(item => {
+        let point = new BMap.Point(item.longitude, item.latitude);
+        let Icon =
+          item.right == "1"
+            ? normalIcon
+            : item.right == "2"
+            ? higherIcon
+            : superIcon;
+        var myIcon = new BMap.Icon(Icon, new BMap.Size(50, 60));
+        let marker = new BMap.Marker(point, { icon: myIcon }); // 创建标注
+        this.map.addOverlay(marker);
+      });
     },
     initMemberList() {
       memberApi
@@ -350,18 +371,8 @@ export default {
         })
         .then(res => {
           this.map.clearOverlays();
-          res.data.data.rows.forEach(item => {
-            let point = new BMap.Point(item.longitude, item.latitude);
-            let Icon =
-              item.right == "1"
-                ? normalIcon
-                : item.right == "2"
-                ? higherIcon
-                : superIcon;
-            var myIcon = new BMap.Icon(Icon, new BMap.Size(50, 60));
-            let marker = new BMap.Marker(point, { icon: myIcon }); // 创建标注
-            this.map.addOverlay(marker);
-          });
+          this.allMemberModel = res.data.data.rows;
+          this.drawMarkers(this.allMemberModel);
         });
     },
     //更换页数
@@ -399,6 +410,22 @@ export default {
         }
         this.dialogFormVisible = false;
       });
+    }
+  },
+  watch: {
+    checkList: {
+      handler(n, o) {
+        let markerList = [];
+        n.forEach(item => {
+          markerList = markerList.concat(
+            this.allMemberModel.filter(listItem => {
+              return listItem.right == item;
+            })
+          );
+        });
+        this.drawMarkers(markerList);
+      },
+      immediate: false
     }
   },
   mounted() {
@@ -451,8 +478,8 @@ export default {
   bottom: 60px;
   width: 200px;
 }
-#lengend img{
-  float:right;
+#lengend img {
+  float: right;
 }
 .detailsCard {
   display: none;
