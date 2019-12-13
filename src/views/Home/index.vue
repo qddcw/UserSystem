@@ -97,7 +97,7 @@
         </el-pagination>
       </el-card>
     </div>
-    <el-dialog title="修改会员" :visible.sync="dialogFormVisible">
+    <el-dialog title="修改会员" :visible.sync="dialogFormVisible" :append-to-body="true">
       <g-form-dialog
         :form-items="formItems_dialog"
         :merge-items="mergefrom"
