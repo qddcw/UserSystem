@@ -8,12 +8,12 @@
         prefix-icon="el-icon-search"
         v-model="searchModel"
         clearable
-        @focus="memberListVisible = true"
+        @focus="memberListVisible = true ;;"
         @input="inputChange"
       >
       </el-input>
     </div>
-    <div id="memberList" v-show="memberListVisible">
+    <div id="memberList" v-show="memberListVisible" >
       <el-card
         shadow="hover"
         body-style="cursor:pointer"
@@ -490,4 +490,5 @@ export default {
 i {
   font-size: 1.4rem;
 }
+
 </style>
