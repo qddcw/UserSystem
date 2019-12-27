@@ -1,6 +1,14 @@
 <template>
   <div>
-    <div id="mapChart"></div>
+    <!-- <div id="mapChart"></div> -->
+    <div id="demo">
+      <button v-on:click="c1">
+        Toggle
+      </button>
+     
+        <div :class='myclass'>hello</div>
+
+    </div>
   </div>
 </template>
 
@@ -9,7 +17,10 @@ import echarts from "echarts";
 import nanjing from "../../assets/320100.json";
 export default {
   data() {
-    return {};
+    return {
+      show: true,
+      myclass:'class1'
+    };
   },
 
   components: {},
@@ -28,11 +39,14 @@ export default {
         ]
       };
       myChart.setOption(mapOption);
+    },
+    c1(){
+      this.myclass = this.myclass=='class1'?'class2':'class1'
     }
   },
   created() {},
   mounted() {
-    this.getmap();
+    // this.getmap();
   }
 };
 </script>
@@ -41,5 +55,15 @@ export default {
 #mapChart {
   width: 100%;
   height: calc(100vh - 166px);
+}
+.class1{
+  width:100px;
+  height:100px;
+  transition: height 2s linear;
+  background: red;
+}
+.class2{
+  height:20px;
+  transition: height 2s linear;
 }
 </style>

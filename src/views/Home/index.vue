@@ -8,96 +8,102 @@
         prefix-icon="el-icon-search"
         v-model="searchModel"
         clearable
-        @focus="memberListVisible = true ;;"
+        @focus="memberListVisible = true"
         @input="inputChange"
       >
       </el-input>
     </div>
-    <div id="memberList" v-show="memberListVisible" >
-      <el-card
-        shadow="hover"
-        body-style="cursor:pointer"
-        @click.native="detailsShow(index)"
-        v-for="(item, index) in memberList"
-        :key="item.id"
-      >
-        <div>
-          <el-row>
-            <el-col :span="4"
-              ><el-tag effect="dark">{{ item.name }}</el-tag></el-col
-            >
-            <el-col :span="5"
-              ><el-tag
-                effect="dark"
-                :type="
-                  item.right == 1
-                    ? 'success'
-                    : item.right == 2
-                    ? 'danger'
-                    : 'warning'
-                "
-                >{{ item.right | rightFilter }}</el-tag
-              ></el-col
-            >
-            <el-col :span="15"
-              ><el-button
-                @click.stop="showDialog(item)"
-                plain
-                size="mini"
-                type="success"
-                circle
-                icon="el-icon-edit-outline"
-                style="float:right"
-              ></el-button
-            ></el-col>
-          </el-row>
-        </div>
-        <span
-          ><el-tag effect="plain">{{ item.address }}</el-tag>
-          <el-button
-            plain
-            size="mini"
-            type="warning"
-            circle
-            icon="el-icon-arrow-down"
-            style="float:right"
-            v-show="!item.show"
-          ></el-button>
-          <el-button
-            plain
-            size="mini"
-            type="warning"
-            circle
-            icon="el-icon-arrow-up"
-            style="float:right"
-            v-show="item.show"
-          ></el-button>
-        </span>
-        <el-card v-show="item.show">
-          <el-tag effect="plain">卡号:{{ item.cardNum }}</el-tag
-          ><br />
-          <el-tag effect="plain">生日:{{ item.birthday }}</el-tag
-          ><br />
-          <el-tag effect="plain">电话:{{ item.phone }}</el-tag
-          ><br />
-          <el-tag effect="plain">积分:{{ item.integral }}</el-tag
-          ><br />
-          <el-tag effect="plain">余额:{{ item.money }}</el-tag
-          ><br />
-        </el-card>
-      </el-card>
-      <el-card body-style="padding: 5px 2px;">
-        <el-pagination
-          @current-change="currentChange"
-          :current-page="page"
-          :page-size="size"
-          layout="total , prev, pager, next"
-          :total="dataTotal"
+    <el-collapse-transition>
+      <div id="memberList" v-show="memberListVisible">
+        <el-card
+          shadow="hover"
+          body-style="cursor:pointer"
+          @click.native="detailsShow(index)"
+          v-for="(item, index) in memberList"
+          :key="item.id"
         >
-        </el-pagination>
-      </el-card>
-    </div>
-    <el-dialog title="修改会员" :visible.sync="dialogFormVisible" :append-to-body="true">
+          <div>
+            <el-row>
+              <el-col :span="4"
+                ><el-tag effect="dark">{{ item.name }}</el-tag></el-col
+              >
+              <el-col :span="5"
+                ><el-tag
+                  effect="dark"
+                  :type="
+                    item.right == 1
+                      ? 'success'
+                      : item.right == 2
+                      ? 'danger'
+                      : 'warning'
+                  "
+                  >{{ item.right | rightFilter }}</el-tag
+                ></el-col
+              >
+              <el-col :span="15"
+                ><el-button
+                  @click.stop="showDialog(item)"
+                  plain
+                  size="mini"
+                  type="success"
+                  circle
+                  icon="el-icon-edit-outline"
+                  style="float:right"
+                ></el-button
+              ></el-col>
+            </el-row>
+          </div>
+          <span
+            ><el-tag effect="plain">{{ item.address }}</el-tag>
+            <el-button
+              plain
+              size="mini"
+              type="warning"
+              circle
+              icon="el-icon-arrow-down"
+              style="float:right"
+              v-show="!item.show"
+            ></el-button>
+            <el-button
+              plain
+              size="mini"
+              type="warning"
+              circle
+              icon="el-icon-arrow-up"
+              style="float:right"
+              v-show="item.show"
+            ></el-button>
+          </span>
+          <el-card v-show="item.show">
+            <el-tag effect="plain">卡号:{{ item.cardNum }}</el-tag
+            ><br />
+            <el-tag effect="plain">生日:{{ item.birthday }}</el-tag
+            ><br />
+            <el-tag effect="plain">电话:{{ item.phone }}</el-tag
+            ><br />
+            <el-tag effect="plain">积分:{{ item.integral }}</el-tag
+            ><br />
+            <el-tag effect="plain">余额:{{ item.money }}</el-tag
+            ><br />
+          </el-card>
+        </el-card>
+        <el-card body-style="padding: 5px 2px;">
+          <el-pagination
+            @current-change="currentChange"
+            :current-page="page"
+            :page-size="size"
+            layout="total , prev, pager, next"
+            :total="dataTotal"
+          >
+          </el-pagination>
+        </el-card>
+      </div>
+    </el-collapse-transition>
+    <el-dialog
+      title="修改会员"
+      :visible.sync="dialogFormVisible"
+      :append-to-body="true"
+    >
       <g-form-dialog
         :form-items="formItems_dialog"
         :merge-items="mergefrom"
@@ -332,10 +338,10 @@ export default {
       this.map.centerAndZoom(point, 8);
       this.map.enableScrollWheelZoom(true);
       this.map.addControl(new BMap.NavigationControl());
-      this.map.addEventListener('click',()=>{
+      this.map.addEventListener("click", () => {
         this.$refs.searchInput.blur();
         this.memberListVisible = false;
-      })
+      });
     },
     drawMarkers(list) {
       this.map.clearOverlays();
@@ -490,5 +496,4 @@ export default {
 i {
   font-size: 1.4rem;
 }
-
 </style>
