@@ -76,7 +76,7 @@ export default {
 }
 span {
   font-size: 20px;
-}
+} 
 .el-menu-item {
   font-size: 18px;
 }

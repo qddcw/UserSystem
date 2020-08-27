@@ -1,14 +1,6 @@
 <template>
   <div>
-    <!-- <div id="mapChart"></div> -->
-    <div id="demo">
-      <button v-on:click="c1">
-        Toggle
-      </button>
-     
-        <div :class='myclass'>hello</div>
-
-    </div>
+    <div id="mapChart"></div>
   </div>
 </template>
 
@@ -40,13 +32,11 @@ export default {
       };
       myChart.setOption(mapOption);
     },
-    c1(){
-      this.myclass = this.myclass=='class1'?'class2':'class1'
-    }
+    
   },
   created() {},
   mounted() {
-    // this.getmap();
+    this.getmap();
   }
 };
 </script>

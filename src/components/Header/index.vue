@@ -35,6 +35,7 @@ import {logout} from '@/api/login'
                     case 'logout' :
                         logout(localStorage.getItem("token")).then(res => {
                             const data = res.data;
+                            console.log(res)
                             if(data.flag){
                                 localStorage.removeItem("token");
                                 localStorage.removeItem("userinfo");

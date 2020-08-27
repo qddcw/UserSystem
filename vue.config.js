@@ -1,4 +1,8 @@
 module.exports = {
+  chainWebpack: config => {
+    // 修复HMR
+    config.resolve.symlinks(true);
+  },
   devServer: {
     port: 8888,
     host: "localhost",
@@ -13,7 +17,7 @@ module.exports = {
           ['^' + process.env.VUE_APP_BASE_API]: '',
         }
       }
-    }
+    },
   },
   lintOnSave: false,
   productionSourceMap: false,
@@ -21,5 +25,6 @@ module.exports = {
     config.externals = {
       "BMap": "BMap"
     }
-  }
+  },
+
 };

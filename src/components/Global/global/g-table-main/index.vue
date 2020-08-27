@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="tableData" height="500" border stripe style="width: calc(100% - 1px);margin-bottom:10px;"
+  <el-table :data="tableData" height="470" border stripe style="width: calc(100% - 1px);margin-bottom:10px;"
     ref='table'>
     <el-table-column type="index" width="50">
     </el-table-column>

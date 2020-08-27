@@ -30,6 +30,7 @@ export default {
                 }
             }).then(res => {
                 const resp = res.data;
+                console.log(resp)
                 if (resp.flag) {
                     this.dataTotal = resp.data.total;
                     this.tableDataSource = resp.data.rows;

@@ -6,7 +6,7 @@ import {
 
 
 const baseapi = process.env.VUE_APP_BASE_API;
-const $axios = axios.create({
+const $axios = axios.create({   
     baseURL: baseapi,
     timeout: 5000
 })
