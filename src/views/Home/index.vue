@@ -15,78 +15,80 @@
     </div>
     <el-collapse-transition>
       <div id="memberList" v-show="memberListVisible">
-        <el-card
-          shadow="hover"
-          body-style="cursor:pointer"
-          @click.native="detailsShow(index)"
-          v-for="(item, index) in memberList"
-          :key="item.id"
-        >
-          <div>
-            <el-row>
-              <el-col :span="4"
-                ><el-tag effect="dark">{{ item.name }}</el-tag></el-col
-              >
-              <el-col :span="5"
-                ><el-tag
-                  effect="dark"
-                  :type="
-                    item.right == 1
-                      ? 'success'
-                      : item.right == 2
-                      ? 'danger'
-                      : 'warning'
-                  "
-                  >{{ item.right | rightFilter }}</el-tag
-                ></el-col
-              >
-              <el-col :span="15"
-                ><el-button
-                  @click.stop="showDialog(item)"
-                  plain
-                  size="mini"
-                  type="success"
-                  circle
-                  icon="el-icon-edit-outline"
-                  style="float:right"
-                ></el-button
-              ></el-col>
-            </el-row>
-          </div>
-          <span
-            ><el-tag effect="plain">{{ item.address }}</el-tag>
-            <el-button
-              plain
-              size="mini"
-              type="warning"
-              circle
-              icon="el-icon-arrow-down"
-              style="float:right"
-              v-show="!item.show"
-            ></el-button>
-            <el-button
-              plain
-              size="mini"
-              type="warning"
-              circle
-              icon="el-icon-arrow-up"
-              style="float:right"
-              v-show="item.show"
-            ></el-button>
-          </span>
-          <el-card v-show="item.show">
-            <el-tag effect="plain">卡号:{{ item.cardNum }}</el-tag
-            ><br />
-            <el-tag effect="plain">生日:{{ item.birthday }}</el-tag
-            ><br />
-            <el-tag effect="plain">电话:{{ item.phone }}</el-tag
-            ><br />
-            <el-tag effect="plain">积分:{{ item.integral }}</el-tag
-            ><br />
-            <el-tag effect="plain">余额:{{ item.money }}</el-tag
-            ><br />
+        <div class="memberList">
+          <el-card
+            shadow="hover"
+            body-style="cursor:pointer;"
+            @click.native="detailsShow(index)"
+            v-for="(item, index) in memberList"
+            :key="item.id"
+          >
+            <div>
+              <el-row>
+                <el-col :span="4"
+                  ><el-tag effect="dark">{{ item.name }}</el-tag></el-col
+                >
+                <el-col :span="5"
+                  ><el-tag
+                    effect="dark"
+                    :type="
+                      item.right == 1
+                        ? 'success'
+                        : item.right == 2
+                        ? 'danger'
+                        : 'warning'
+                    "
+                    >{{ item.right | rightFilter }}</el-tag
+                  ></el-col
+                >
+                <el-col :span="15"
+                  ><el-button
+                    @click.stop="showDialog(item)"
+                    plain
+                    size="mini"
+                    type="success"
+                    circle
+                    icon="el-icon-edit-outline"
+                    style="float:right"
+                  ></el-button
+                ></el-col>
+              </el-row>
+            </div>
+            <span
+              ><el-tag effect="plain">{{ item.address }}</el-tag>
+              <el-button
+                plain
+                size="mini"
+                type="warning"
+                circle
+                icon="el-icon-arrow-down"
+                style="float:right"
+                v-show="!item.show"
+              ></el-button>
+              <el-button
+                plain
+                size="mini"
+                type="warning"
+                circle
+                icon="el-icon-arrow-up"
+                style="float:right"
+                v-show="item.show"
+              ></el-button>
+            </span>
+            <el-card v-show="item.show">
+              <el-tag effect="plain">卡号:{{ item.cardNum }}</el-tag
+              ><br />
+              <el-tag effect="plain">生日:{{ item.birthday }}</el-tag
+              ><br />
+              <el-tag effect="plain">电话:{{ item.phone }}</el-tag
+              ><br />
+              <el-tag effect="plain">积分:{{ item.integral }}</el-tag
+              ><br />
+              <el-tag effect="plain">余额:{{ item.money }}</el-tag
+              ><br />
+            </el-card>
           </el-card>
-        </el-card>
+        </div>
         <el-card body-style="padding: 5px 2px;">
           <el-pagination
             @current-change="currentChange"
@@ -164,15 +166,15 @@ export default {
               {
                 required: true,
                 message: "必填项",
-                trigger: "blur"
-              }
+                trigger: "blur",
+              },
             ],
-            label: "会员姓名"
+            label: "会员姓名",
           },
           attrs: {
             model: "name",
-            value: ""
-          }
+            value: "",
+          },
         },
         {
           type: "el-input",
@@ -182,15 +184,15 @@ export default {
               {
                 required: true,
                 message: "必填项",
-                trigger: "blur"
-              }
+                trigger: "blur",
+              },
             ],
-            label: "会员卡号"
+            label: "会员卡号",
           },
           attrs: {
             model: "cardNum",
-            value: ""
-          }
+            value: "",
+          },
         },
         {
           type: "g-select",
@@ -200,10 +202,10 @@ export default {
               {
                 required: true,
                 message: "必填项",
-                trigger: "change"
-              }
+                trigger: "change",
+              },
             ],
-            label: "支付方式"
+            label: "支付方式",
           },
           attrs: {
             model: "payType",
@@ -211,22 +213,22 @@ export default {
             options: [
               {
                 label: "现金",
-                value: "1"
+                value: "1",
               },
               {
                 label: "支付宝",
-                value: "2"
+                value: "2",
               },
               {
                 label: "微信",
-                value: "3"
+                value: "3",
               },
               {
                 label: "银行卡",
-                value: "4"
-              }
-            ]
-          }
+                value: "4",
+              },
+            ],
+          },
         },
         {
           type: "g-datepicker",
@@ -236,15 +238,15 @@ export default {
               {
                 required: true,
                 message: "必填项",
-                trigger: "blur"
-              }
+                trigger: "blur",
+              },
             ],
-            label: "生日"
+            label: "生日",
           },
           attrs: {
             model: "birthday",
-            value: ""
-          }
+            value: "",
+          },
         },
         {
           type: "g-areacascader",
@@ -254,15 +256,15 @@ export default {
               {
                 required: true,
                 message: "必填项",
-                trigger: "change"
-              }
+                trigger: "change",
+              },
             ],
-            label: "地址"
+            label: "地址",
           },
           attrs: {
             model: "address",
-            value: ""
-          }
+            value: "",
+          },
         },
         {
           type: "el-input",
@@ -272,15 +274,15 @@ export default {
               {
                 required: true,
                 message: "必填项",
-                trigger: "blur"
-              }
+                trigger: "blur",
+              },
             ],
-            label: "余额"
+            label: "余额",
           },
           attrs: {
             model: "money",
-            value: ""
-          }
+            value: "",
+          },
         },
         {
           type: "el-input",
@@ -290,15 +292,15 @@ export default {
               {
                 required: true,
                 message: "必填项",
-                trigger: "blur"
-              }
+                trigger: "blur",
+              },
             ],
-            label: "积分"
+            label: "积分",
           },
           attrs: {
             model: "integral",
-            value: ""
-          }
+            value: "",
+          },
         },
         {
           type: "el-input",
@@ -309,16 +311,16 @@ export default {
               {
                 required: true,
                 message: "必填项",
-                trigger: "blur"
-              }
-            ]
+                trigger: "blur",
+              },
+            ],
           },
           attrs: {
             model: "phone",
-            value: ""
-          }
-        }
-      ]
+            value: "",
+          },
+        },
+      ],
     };
   },
   created() {
@@ -327,7 +329,7 @@ export default {
   computed: {
     memberList() {
       return this.memberListModel;
-    }
+    },
   },
 
   methods: {
@@ -345,7 +347,7 @@ export default {
     },
     drawMarkers(list) {
       this.map.clearOverlays();
-      list.forEach(item => {
+      list.forEach((item) => {
         let point = new BMap.Point(item.longitude, item.latitude);
         let Icon =
           item.right == "1"
@@ -363,9 +365,9 @@ export default {
         .getMemberList({
           page: this.page,
           size: this.size,
-          searchModel: this.searchModel
+          searchModel: this.searchModel,
         })
-        .then(res => {
+        .then((res) => {
           this.memberListModel = res.data.data.rows;
           this.dataTotal = res.data.data.total;
         });
@@ -373,9 +375,9 @@ export default {
     getAllMembers() {
       memberApi
         .getAllMemberList({
-          checkList: this.checkList
+          checkList: this.checkList,
         })
-        .then(res => {
+        .then((res) => {
           this.map.clearOverlays();
           this.allMemberModel = res.data.data.rows;
           this.drawMarkers(this.allMemberModel);
@@ -407,7 +409,7 @@ export default {
     submitForm(data) {
       let subobj = JSON.parse(JSON.stringify(data));
 
-      memberApi.editMember(subobj).then(res => {
+      memberApi.editMember(subobj).then((res) => {
         const resp = res.data;
         if (resp.flag) {
           this.success(resp.message);
@@ -416,23 +418,23 @@ export default {
         }
         this.dialogFormVisible = false;
       });
-    }
+    },
   },
   watch: {
     checkList: {
       handler(n, o) {
         let markerList = [];
-        n.forEach(item => {
+        n.forEach((item) => {
           markerList = markerList.concat(
-            this.allMemberModel.filter(listItem => {
+            this.allMemberModel.filter((listItem) => {
               return listItem.right == item;
             })
           );
         });
         this.drawMarkers(markerList);
       },
-      immediate: false
-    }
+      immediate: false,
+    },
   },
   mounted() {
     this.initMap();
@@ -453,8 +455,8 @@ export default {
           break;
       }
       return changeType;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -477,6 +479,11 @@ export default {
   left: 110px;
   top: 60px;
   width: 480px;
+}
+.memberList {
+  width: 100%;
+  height: 450px;
+  overflow-y: scroll;
 }
 #lengend {
   position: absolute;
