@@ -148,7 +148,7 @@ const staffadd = {
     "message": '新增成功',
 
 }
-Mock.mock(`/staff/list/add`, 'post', staffadd)
+Mock.mock(`/staff/add`, 'post', staffadd)
 
 const staffedit = {
     "code": 2000, // 状态码
@@ -156,7 +156,7 @@ const staffedit = {
     "message": '修改成功',
 
 }
-Mock.mock(`/staff/list/edit`, 'post', staffedit)
+Mock.mock(`/staff/edit`, 'post', staffedit)
 
 const staffdel = {
     "code": 2000, // 状态码
@@ -164,7 +164,7 @@ const staffdel = {
     "message": '删除成功',
 
 }
-Mock.mock(`/staff/list/del`, 'post', staffdel)
+Mock.mock(`/staff/del`, 'post', staffdel)
 
 //supplier
 const suppliersearch = {
@@ -193,7 +193,7 @@ const supplieradd = {
     "message": '新增成功',
 
 }
-Mock.mock(`/supplier/list/add`, 'post', supplieradd)
+Mock.mock(`/supplier/add`, 'post', supplieradd)
 
 const supplieredit = {
     "code": 2000, // 状态码
@@ -201,7 +201,7 @@ const supplieredit = {
     "message": '修改成功',
 
 }
-Mock.mock(`/supplier/list/edit`, 'post', supplieredit)
+Mock.mock(`/supplier/edit`, 'post', supplieredit)
 
 const supplierdel = {
     "code": 2000, // 状态码
@@ -209,7 +209,7 @@ const supplierdel = {
     "message": '删除成功',
 
 }
-Mock.mock(`/supplier/list/del`, 'post', supplierdel)
+Mock.mock(`/supplier/del`, 'post', supplierdel)
 
 //goods
 const goodssearch = {
@@ -241,7 +241,7 @@ const goodsadd = {
     "message": '新增成功',
 
 }
-Mock.mock(`/goods/list/add`, 'post', goodsadd)
+Mock.mock(`/goods/add`, 'post', goodsadd)
 
 const goodsedit = {
     "code": 2000, // 状态码
@@ -249,7 +249,7 @@ const goodsedit = {
     "message": '修改成功',
 
 }
-Mock.mock(`/goods/list/edit`, 'post', goodsedit)
+Mock.mock(`/goods/edit`, 'post', goodsedit)
 
 const goodsdel = {
     "code": 2000, // 状态码
@@ -257,7 +257,7 @@ const goodsdel = {
     "message": '删除成功',
 
 }
-Mock.mock(`/goods/list/del`, 'post', goodsdel)
+Mock.mock(`/goods/del`, 'post', goodsdel)
 
 //member
 
@@ -291,7 +291,7 @@ const memberadd = {
     "message": '新增成功',
 
 }
-Mock.mock(`/member/list/add`, 'post', memberadd)
+Mock.mock(`/member/add`, 'post', memberadd)
 
 const memberedit = {
     "code": 2000, // 状态码
@@ -299,7 +299,7 @@ const memberedit = {
     "message": '修改成功',
 
 }
-Mock.mock(`/member/list/edit`, 'post', memberedit)
+Mock.mock(`/member/edit`, 'post', memberedit)
 
 const memberdel = {
     "code": 2000, // 状态码
@@ -307,7 +307,7 @@ const memberdel = {
     "message": '删除成功',
 
 }
-Mock.mock(`/member/list/del`, 'post', memberdel)
+Mock.mock(`/member/del`, 'post', memberdel)
 
 
 
