@@ -13,8 +13,11 @@ export function login(username,password){
 
 export function getUserInfo(token){
     return $axios({
-        url:`/user/info/${token}`,
-        method:'get'
+        url:`/user/info`,
+        method:'post',
+        data:{
+            token:token
+        }
     })
 }
 export function logout(token){

@@ -144,6 +144,8 @@ import normalIcon from "@/assets/marker/normalVip.gif";
 import higherIcon from "@/assets/marker/higherVip.gif";
 import superIcon from "@/assets/marker/superVip.gif";
 //import styleJson from "../../assets/custom_map_config.json";
+import $axios from '@/utils/request'
+
 export default {
   data() {
     return {

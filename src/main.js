@@ -7,11 +7,12 @@ import './permission';
 import './components/Global/global'
 import MessageMixin from './mixin/messageMixin'
 import TableMixin from './mixin/tableMixin'
-
+import Mock from '@/mock'
 Vue.use(ElementUI);
 Vue.mixin(MessageMixin);
 Vue.mixin(TableMixin);
-Vue.config.productionTip = process.env.NODE_ENV==="production";
+Vue.config.productionTip = process.env.NODE_ENV === "production";
+
 
 new Vue({
   router,

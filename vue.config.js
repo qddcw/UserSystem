@@ -1,4 +1,4 @@
-module.exports = {
+let config = {
   chainWebpack: config => {
     // 修复HMR
     config.resolve.symlinks(true);
@@ -28,3 +28,8 @@ module.exports = {
   },
 
 };
+if (process.env.VUE_APP_MOCK) {
+  delete config.devServer.proxy
+  process.env.VUE_APP_BASE_API = ""
+}
+module.exports = config
