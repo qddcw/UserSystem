@@ -61,17 +61,14 @@
         column: [{
             prop: "supplier",
             label: '供应商',
-            width: 300
           },
           {
             prop: "linkman",
             label: '联系人',
-            width: 200
           },
           {
             prop: "phone",
             label: '电话号码',
-            width: 200
           },
           {
             prop: "remark",

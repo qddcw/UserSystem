@@ -83,6 +83,17 @@ export default new Router({
         meta:{title:['echarts','demo']}
       }]
     },
+    {
+      path: "/practice",
+      component: Layout,
+      children:[{
+        path: "/practice/demo",
+        name: "practice",
+        component: () =>
+          import("@/views/Practice/demo.vue"),
+        meta:{title:['practice','demo']}
+      }]
+    },
     
     
   ]

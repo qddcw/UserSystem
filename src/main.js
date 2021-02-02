@@ -8,6 +8,7 @@ import './components/Global/global'
 import MessageMixin from './mixin/messageMixin'
 import TableMixin from './mixin/tableMixin'
 import Mock from '@/mock'
+import 'leaflet/dist/leaflet.css';
 Vue.use(ElementUI);
 Vue.mixin(MessageMixin);
 Vue.mixin(TableMixin);
